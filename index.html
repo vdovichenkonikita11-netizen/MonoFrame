@@ -27,7 +27,7 @@ strong{font-size:23px;letter-spacing:-.8px}p{color:#727984;line-height:1.5}#stat
   const binary=Uint8Array.from(atob(encoded),c=>c.charCodeAt(0));
   if(!("DecompressionStream" in window)) throw new Error("Обновите Safari или Chrome до актуальной версии.");
   const stream=new Blob([binary]).stream().pipeThrough(new DecompressionStream("gzip"));
-  const source=await new Response(stream).text();
+  let source=await new Response(stream).text();
   const previewOld="return {w:iw*scale,h:ih*scale}";
   const exportOld="c.drawImage(img,-iw*scale/2,-ih*scale/2,iw*scale,ih*scale)";
   if(!source.includes(previewOld)||!source.includes(exportOld)) throw new Error("Не удалось применить исправление поворота: исходный код изменился.");
